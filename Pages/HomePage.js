@@ -1,19 +1,31 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, Pressable, Button } from "react-native";
 
 export default function HomePage() {
+  const nav = useNavigation();
+
   return (
     <View style={styles.page}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Welcome to Counter</Text>
       </View>
       <View style={styles.body}>
-        <Pressable style={styles.buttons}>
+        <Pressable
+          style={styles.buttons}
+          onPress={() => nav.navigate("Track Food")}
+        >
           <Text style={styles.buttonText}>Track Food</Text>
         </Pressable>
-        <Pressable style={styles.buttons}>
+        <Pressable
+          style={styles.buttons}
+          onPress={() => nav.navigate("Weight Log")}
+        >
           <Text style={styles.buttonText}>Log Weight</Text>
         </Pressable>
-        <Pressable style={styles.buttons}>
+        <Pressable
+          style={styles.buttons}
+          onPress={() => nav.navigate("Progress")}
+        >
           <Text style={styles.buttonText}>View Progress</Text>
         </Pressable>
       </View>

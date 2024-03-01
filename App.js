@@ -10,8 +10,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 export default function App() {
-  // const nav = useNavigation();
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
