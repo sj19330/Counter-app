@@ -1,17 +1,16 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import Slider from "../Components/Slider";
+import PageTitle from "../Components/PageTitle";
 
 export default function TrackFood() {
   return (
     <View style={styles.page}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>
-          How much more/less did you eat today?
-        </Text>
-      </View>
+      <PageTitle text="How much more/less did you eat today?" />
       <ScrollView style={styles.body}>
-        <Slider></Slider>
-        <Slider></Slider>
+        <Slider />
+        <Slider />
+        <Slider />
+        <Slider />
       </ScrollView>
     </View>
   );

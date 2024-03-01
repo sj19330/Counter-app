@@ -36,7 +36,6 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: "#f7f5fb",
   },
   headerContainer: {
     alignItems: "center",
