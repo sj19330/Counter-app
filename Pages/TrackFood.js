@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
-import Slider from "../Components/Slider";
+import CustomSlider from "../Components/CustomSlider";
 import PageTitle from "../Components/PageTitle";
 
 export default function TrackFood() {
@@ -7,10 +7,10 @@ export default function TrackFood() {
     <View style={styles.page}>
       <PageTitle text="How much more/less did you eat today?" />
       <ScrollView style={styles.body}>
-        <Slider />
-        <Slider />
-        <Slider />
-        <Slider />
+        <CustomSlider />
+        <CustomSlider />
+        <CustomSlider />
+        <CustomSlider />
       </ScrollView>
     </View>
   );
