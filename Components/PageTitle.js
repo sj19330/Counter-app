@@ -10,5 +10,10 @@ export default function Title(props) {
 
 const styles = StyleSheet.create({
   titleContainer: { flex: 1, width: "80%" },
-  titleText: { paddingTop: 35, paddingLeft: 35, fontSize: 30 },
+  titleText: {
+    paddingTop: 35,
+    paddingLeft: 35,
+    fontSize: 30,
+    color: "#2F323A",
+  },
 });

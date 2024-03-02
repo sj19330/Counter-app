@@ -28,6 +28,9 @@ export default function HomePage() {
         >
           <Text style={styles.buttonText}>View Progress</Text>
         </Pressable>
+        <Pressable style={styles.buttons} onPress={() => nav.navigate("Test")}>
+          <Text style={styles.buttonText}>Testpage</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -40,8 +43,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     alignItems: "center",
     marginTop: 150,
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   headerText: {
     fontSize: 30,

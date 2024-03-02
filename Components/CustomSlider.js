@@ -1,9 +1,26 @@
 import { View, Text, StyleSheet } from "react-native";
+import Slider from "@react-native-community/slider";
+import { useState } from "react";
 
-export default function Slider(props) {
+export default function CustomSlider(props) {
+  const handleChange = (value) => {
+    props.setRange(value);
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.line}></View>
+      <Text>{props.label}</Text>
+      <Slider
+        style={styles.slider}
+        minimumValue={0}
+        maximumValue={6}
+        step={1}
+        value={props.range}
+        onValueChange={(value) => handleChange(parseInt(value))}
+        minimumTrackTintColor="#2F323A"
+        maximumTrackTintColor="#2F323A"
+        thumbTintColor="#7765e3"
+      />
+      <Text>{props.range}</Text>
     </View>
   );
 }
@@ -11,11 +28,12 @@ export default function Slider(props) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 100,
-    borderWidth: 1,
-    bordercolor: "grey",
+    height: 120,
     justifyContent: "center",
     alignItems: "center",
   },
-  line: { borderWidth: 1, borderColor: "black", width: "80%" },
+  slider: {
+    width: "85%",
+    height: "100%",
+  },
 });
