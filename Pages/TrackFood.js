@@ -15,10 +15,7 @@ export default function TrackFood() {
   return (
     <View style={styles.page}>
       <View style={styles.title}>
-        <PageTitle
-          text="How much more/less did you eat today?"
-          style={styles.titleText}
-        />
+        <PageTitle text="How much more/less did you eat today?" />
       </View>
       <View style={styles.body}>
         <View style={styles.captionContainer}>

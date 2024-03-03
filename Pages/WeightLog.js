@@ -1,23 +1,48 @@
 import { StyleSheet, Text, View } from "react-native";
 import PageTitle from "../Components/PageTitle";
 
+import { TextInput } from "react-native-gesture-handler";
+import WeightInput from "../Components/WeightInput";
+import CustomButton from "../Components/CustomButton";
+
 export default function WeightLog() {
   return (
     <View style={styles.page}>
-      <PageTitle text="How much do you weigh today?" />
+      <View style={styles.titleContainer}>
+        <PageTitle text="How much do you weigh today?" />
+      </View>
       <View style={styles.body}>
-        <Text style={styles.tbc}>TBC</Text>
+        <View style={styles.inputContainer}>
+          <WeightInput />
+        </View>
+        <View style={styles.saveContainer}>
+          <CustomButton />
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1 },
-  content: { flex: 4 },
+  page: {
+    flex: 1,
+    margin: 10,
+  },
+  titleContainer: {
+    flex: 1,
+  },
   body: {
+    flex: 4,
+  },
+  inputContainer: {
     flex: 3,
     alignItems: "center",
+    justifyContent: "center",
   },
-  tbc: { textAlign: "center", fontSize: 20, paddingTop: 40 },
+  saveContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
 });
