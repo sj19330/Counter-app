@@ -3,6 +3,7 @@ import CustomSlider from "../Components/CustomSlider";
 import PageTitle from "../Components/PageTitle";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import CustomButton from "../Components/CustomButton";
 
 export default function TrackFood() {
   const [breakfastRange, setBreakfastRange] = useState(3);
@@ -45,9 +46,7 @@ export default function TrackFood() {
           />
         </View>
         <View style={styles.buttonConatainer}>
-          <Pressable style={styles.button} onPress={() => nav.navigate("Home")}>
-            <Text style={styles.buttonText}>Save</Text>
-          </Pressable>
+          <CustomButton />
         </View>
       </View>
     </View>
