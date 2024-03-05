@@ -4,24 +4,24 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 
 export default function CustomButton(props) {
   const nav = useNavigation();
-  const width = props.width;
-  const height = props.height;
+
+  const handlePress = () => {
+    props.handlePress();
+  };
 
   return (
-    <View style={styles.buttonConatainer}>
-      <Pressable
-        style={({ pressed }) => [
-          styles.button,
-          { width: props.width, height: props.height },
-          pressed && { backgroundColor: "#5c4fab" },
-        ]}
-        onPress={() => {
-          nav.navigate("Home");
-        }}
-      >
-        <Text style={styles.buttonText}>{props.text}</Text>
-      </Pressable>
-    </View>
+    <Pressable
+      style={({ pressed }) => [
+        styles.button,
+        { width: props.width, height: props.height },
+        pressed && { backgroundColor: "#5c4fab" },
+      ]}
+      onPress={() => {
+        nav.navigate("Home");
+      }}
+    >
+      <Text style={styles.buttonText}>{props.text}</Text>
+    </Pressable>
   );
 }
 
@@ -32,10 +32,6 @@ CustomButton.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  buttonConatainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  },
   button: {
     backgroundColor: "#7765e3",
     borderRadius: 8,
