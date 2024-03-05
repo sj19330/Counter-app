@@ -9,13 +9,19 @@ export default function WeightInput(props) {
     }
     console.log(props.weight.length);
   };
+  const smallText = props.weight.length > 2;
+  const verySmallText = props.weight.length > 4;
 
   return (
     <View style={styles.container}>
       <AdjustButton type="Minus" />
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.textInput}
+          style={[
+            styles.textInput,
+            smallText && { fontSize: 30 },
+            verySmallText && { fontSize: 20 },
+          ]}
           value={props.weight}
           keyboardType="numeric"
           enterKeyHint="done"
