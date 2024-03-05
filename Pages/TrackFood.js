@@ -46,7 +46,7 @@ export default function TrackFood() {
           />
         </View>
         <View style={styles.buttonConatainer}>
-          <CustomButton />
+          <CustomButton onPress={() => nav.navigate("Home")} />
         </View>
       </View>
     </View>

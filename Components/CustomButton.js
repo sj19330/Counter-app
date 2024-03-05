@@ -6,7 +6,7 @@ export default function CustomButton(props) {
   const nav = useNavigation();
 
   const handlePress = () => {
-    props.handlePress();
+    props.onPress();
   };
 
   return (
@@ -16,9 +16,7 @@ export default function CustomButton(props) {
         { width: props.width, height: props.height },
         pressed && { backgroundColor: "#5c4fab" },
       ]}
-      onPress={() => {
-        nav.navigate("Home");
-      }}
+      onPress={() => handlePress()}
     >
       <Text style={styles.buttonText}>{props.text}</Text>
     </Pressable>
@@ -32,6 +30,10 @@ CustomButton.defaultProps = {
 };
 
 const styles = StyleSheet.create({
+  buttonConatainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
   button: {
     backgroundColor: "#7765e3",
     borderRadius: 8,
