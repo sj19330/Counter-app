@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import PageTitle from "../Components/PageTitle";
 
 import { TextInput } from "react-native-gesture-handler";
-import WeightInput from "../Components/WeightInput";
+import WeightInput from "../Components/WeightPageComponents/WeightInput";
 import CustomButton from "../Components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 export default function WeightLog() {
   const nav = useNavigation();
+  const [weightInput, setWeightInput] = useState("0");
 
   return (
     <View style={styles.page}>
@@ -16,7 +18,7 @@ export default function WeightLog() {
       </View>
       <View style={styles.body}>
         <View style={styles.inputContainer}>
-          <WeightInput />
+          <WeightInput weight={weightInput} setWeight={setWeightInput} />
         </View>
         <View style={styles.saveContainer}>
           <CustomButton onPress={() => nav.navigate("Home")} />
