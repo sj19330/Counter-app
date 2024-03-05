@@ -1,21 +1,34 @@
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
-export default function CustomButton() {
+export default function CustomButton(props) {
   const nav = useNavigation();
+  const [buttonColor, setButtonColor] = useState("#7765e3");
 
   return (
     <View style={styles.buttonConatainer}>
-      <Pressable style={styles.button} onPress={() => nav.navigate("Home")}>
-        <Text style={styles.buttonText}>Save</Text>
+      <Pressable
+        style={({ pressed }) => [
+          styles.button,
+          pressed && { backgroundColor: "#5c4fab" },
+        ]}
+        onPress={() => {
+          nav.navigate("Home");
+        }}
+      >
+        <Text style={styles.buttonText}>{props.text}</Text>
       </Pressable>
     </View>
   );
 }
 
+CustomButton.defaultProps = {
+  text: "Save",
+};
+
 const styles = StyleSheet.create({
   buttonConatainer: {
-    flex: 3,
     flexDirection: "row",
     justifyContent: "flex-end",
   },
@@ -29,6 +42,7 @@ const styles = StyleSheet.create({
     shadowColor: "#2F323A",
     shadowOffset: { width: -2, height: 2 },
     shadowOpacity: 0.3,
+    backgroundColor: "#7765e3",
   },
   buttonText: {
     color: "white",

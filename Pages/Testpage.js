@@ -7,42 +7,10 @@ import CustomButton from "../Components/CustomButton";
 
 export default function WeightLog() {
   return (
-    <View style={styles.page}>
-      <View style={styles.titleContainer}>
-        <PageTitle text="How much do you weigh today?" />
-      </View>
-      <View style={styles.body}>
-        <View style={styles.inputContainer}>
-          <WeightInput />
-        </View>
-        <View style={styles.saveContainer}>
-          <CustomButton />
-        </View>
-      </View>
+    <View>
+      <CustomButton></CustomButton>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    margin: 10,
-  },
-  titleContainer: {
-    flex: 1,
-  },
-  body: {
-    flex: 4,
-  },
-  inputContainer: {
-    flex: 3,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  saveContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-});
+const styles = StyleSheet.create({});
