@@ -13,7 +13,7 @@ export default function CustomButton(props) {
     <Pressable
       style={({ pressed }) => [
         styles.button,
-        { width: props.width, height: props.height },
+        { width: props.width },
         pressed && { backgroundColor: "#5c4fab" },
       ]}
       onPress={() => handlePress()}
@@ -26,26 +26,21 @@ export default function CustomButton(props) {
 CustomButton.defaultProps = {
   text: "Save",
   width: 100,
-  height: 50,
 };
 
 const styles = StyleSheet.create({
-  buttonConatainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-  },
   button: {
     backgroundColor: "#7765e3",
     borderRadius: 8,
+    padding: 10,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#2F323A",
     shadowOffset: { width: -2, height: 2 },
     shadowOpacity: 0.3,
-    backgroundColor: "#7765e3",
   },
   buttonText: {
-    color: "white",
+    color: "#f7f5fb",
     fontSize: 20,
   },
 });

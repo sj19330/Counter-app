@@ -11,7 +11,7 @@ export default function WeightLog() {
 
   return (
     <View>
-      <CustomButton></CustomButton>
+      <CustomButton onPress={() => nav.navigate("Home")}></CustomButton>
     </View>
   );
 }

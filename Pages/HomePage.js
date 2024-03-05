@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Pressable, Button } from "react-native";
+import CustomButton from "../Components/CustomButton";
 
 export default function HomePage() {
   const nav = useNavigation();
@@ -10,27 +11,26 @@ export default function HomePage() {
         <Text style={styles.headerText}>Welcome to Counter</Text>
       </View>
       <View style={styles.body}>
-        <Pressable
-          style={styles.buttons}
+        <CustomButton
+          width="60%"
+          text="Track Food"
           onPress={() => nav.navigate("Track Food")}
-        >
-          <Text style={styles.buttonText}>Track Food</Text>
-        </Pressable>
-        <Pressable
-          style={styles.buttons}
+        />
+        <CustomButton
+          width="60%"
+          text="Log Weight"
           onPress={() => nav.navigate("Weight Log")}
-        >
-          <Text style={styles.buttonText}>Log Weight</Text>
-        </Pressable>
-        <Pressable
-          style={styles.buttons}
+        />
+        <CustomButton
+          width="60%"
+          text="View Progress"
           onPress={() => nav.navigate("Progress")}
-        >
-          <Text style={styles.buttonText}>View Progress</Text>
-        </Pressable>
-        <Pressable style={styles.buttons} onPress={() => nav.navigate("Test")}>
-          <Text style={styles.buttonText}>Testpage</Text>
-        </Pressable>
+        />
+        <CustomButton
+          width="60%"
+          text="Test Page"
+          onPress={() => nav.navigate("Test")}
+        />
       </View>
     </View>
   );
@@ -54,22 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flex: 1,
-    // borderWidth: 1,
-    // borderColor: "red",
     paddingVertical: 120,
-  },
-  buttons: {
-    backgroundColor: "#7765e3",
-    borderRadius: 5,
-    padding: 10,
-    alignItems: "center",
-    width: "60%",
-    shadowColor: "#2F323A",
-    shadowOffset: { width: -2, height: 2 },
-    shadowOpacity: 0.3,
-  },
-  buttonText: {
-    color: "#f7f5fb",
-    fontSize: 20,
   },
 });
