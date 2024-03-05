@@ -81,17 +81,6 @@ const styles = StyleSheet.create({
     flex: 3,
     flexDirection: "row",
     justifyContent: "flex-end",
-  },
-  button: {
-    width: 100,
-    height: 50,
-    backgroundColor: "#7765e3",
-    borderRadius: 8,
-    justifyContent: "center",
     alignItems: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 20,
   },
 });
