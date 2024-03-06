@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput } from "react-native";
 import { View, Text } from "react-native";
-import AdjustButton from "../AdjustButton";
+import AdjustButton from "./AdjustButton";
 
 export default function WeightInput(props) {
   const handleChange = (newValue) => {
@@ -14,7 +14,11 @@ export default function WeightInput(props) {
 
   return (
     <View style={styles.container}>
-      <AdjustButton type="Minus" />
+      <AdjustButton
+        type="Minus"
+        setWeight={props.setWeight}
+        weight={props.weight}
+      />
       <View style={styles.inputContainer}>
         <TextInput
           style={[
@@ -28,7 +32,11 @@ export default function WeightInput(props) {
           onChangeText={(newValue) => handleChange(newValue)}
         ></TextInput>
       </View>
-      <AdjustButton type="Plus" />
+      <AdjustButton
+        type="Plus"
+        setWeight={props.setWeight}
+        weight={props.weight}
+      />
     </View>
   );
 }
@@ -46,7 +54,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    fontSize: 60,
+    fontSize: 55,
     color: "#2F323A",
     backgroundColor: "lightgrey",
     borderColor: "grey",
