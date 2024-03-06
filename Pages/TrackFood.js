@@ -21,6 +21,7 @@ export default function TrackFood() {
       <View style={styles.body}>
         <View style={styles.captionContainer}>
           <Text>Less</Text>
+          <Text>Same</Text>
           <Text>More</Text>
         </View>
         <View style={styles.slidersContainer}>
@@ -66,21 +67,22 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   captionContainer: {
-    flex: 2,
+    flex: 1,
     height: 30,
-
+    // backgroundColor: "blue",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
     marginHorizontal: 15,
   },
   slidersContainer: {
-    flex: 18,
+    flex: 8,
+    // backgroundColor: "green",
   },
   buttonConatainer: {
-    flex: 3,
+    flex: 2,
     flexDirection: "row",
     justifyContent: "flex-end",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
 });

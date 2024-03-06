@@ -8,7 +8,6 @@ export default function CustomSlider(props) {
   };
   return (
     <View style={styles.container}>
-      <Text>{props.label}</Text>
       <Slider
         style={styles.slider}
         minimumValue={0}
@@ -20,7 +19,7 @@ export default function CustomSlider(props) {
         maximumTrackTintColor="#2F323A"
         thumbTintColor="#7765e3"
       />
-      <Text>{props.range}</Text>
+      <Text>{props.label}</Text>
     </View>
   );
 }
@@ -28,7 +27,7 @@ export default function CustomSlider(props) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 120,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
