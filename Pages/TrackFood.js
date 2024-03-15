@@ -13,6 +13,10 @@ export default function TrackFood() {
 
   const nav = useNavigation();
 
+  const handleNavigation = () => {
+    nav.goBack();
+  };
+
   return (
     <View style={styles.page}>
       <View style={styles.title}>
@@ -47,7 +51,7 @@ export default function TrackFood() {
           />
         </View>
         <View style={styles.buttonConatainer}>
-          <CustomButton onPress={() => nav.navigate("Home")} />
+          <CustomButton onPress={handleNavigation} />
         </View>
       </View>
     </View>

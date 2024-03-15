@@ -21,7 +21,7 @@ export default function WeightLog() {
           <WeightInput weight={weightInput} setWeight={setWeightInput} />
         </View>
         <View style={styles.saveContainer}>
-          <CustomButton onPress={() => nav.navigate("Home")} />
+          <CustomButton onPress={() => nav.goBack()} />
         </View>
       </View>
     </View>
