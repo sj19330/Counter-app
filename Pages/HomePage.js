@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function HomePage() {
   const developerMode = true;
   const nav = useNavigation();
-  const db = SQLite.openDatabase("data");
+  // const db = SQLite.openDatabase("data");
 
   return (
     <View style={styles.page}>
