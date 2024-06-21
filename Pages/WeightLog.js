@@ -5,11 +5,13 @@ import { TextInput } from "react-native-gesture-handler";
 import WeightInput from "../Components/WeightPageComponents/WeightInput";
 import CustomButton from "../Components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DBContext } from "../App";
 
 export default function WeightLog() {
   const nav = useNavigation();
   const [weightInput, setWeightInput] = useState("0");
+  const db = useContext(DBContext);
 
   return (
     <View style={styles.page}>
@@ -21,11 +23,18 @@ export default function WeightLog() {
           <WeightInput weight={weightInput} setWeight={setWeightInput} />
         </View>
         <View style={styles.saveContainer}>
-          <CustomButton onPress={() => nav.goBack()} />
+          <CustomButton onPress={async () => saveWeight(db, weightInput, nav)} />
         </View>
       </View>
     </View>
   );
+}
+
+async function saveWeight(db, kilograms, nav) {
+  await db.runAsync('INSERT INTO weight (time, kilograms) VALUES (?, ?);', Date.now(), kilograms);
+  // print table for debugging purposes
+  console.log(await db.getAllAsync("SELECT * FROM weight"));
+  nav.goBack()
 }
 
 const styles = StyleSheet.create({

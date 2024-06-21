@@ -1,13 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Pressable, Button } from "react-native";
 import CustomButton from "../Components/CustomButton";
-import * as SQLite from "expo-sqlite";
 import { useState, useEffect } from "react";
 
 export default function HomePage() {
   const developerMode = true;
   const nav = useNavigation();
-  // const db = SQLite.openDatabase("data");
 
   return (
     <View style={styles.page}>
