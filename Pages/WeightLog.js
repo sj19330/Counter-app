@@ -23,7 +23,11 @@ export default function WeightLog() {
           <WeightInput weight={weightInput} setWeight={setWeightInput} />
         </View>
         <View style={styles.saveContainer}>
-          <CustomButton onPress={async () => saveWeight(db, weightInput, nav)} />
+          <CustomButton
+            onPress={async () => saveWeight(db, weightInput, nav)}
+            width={100}
+            text="Save"
+          />
         </View>
       </View>
     </View>
@@ -31,10 +35,14 @@ export default function WeightLog() {
 }
 
 async function saveWeight(db, kilograms, nav) {
-  await db.runAsync('INSERT INTO weight (time, kilograms) VALUES (?, ?);', Date.now(), kilograms);
+  await db.runAsync(
+    "INSERT INTO weight (time, kilograms) VALUES (?, ?);",
+    Date.now(),
+    kilograms
+  );
   // print table for debugging purposes
   console.log(await db.getAllAsync("SELECT * FROM weight"));
-  nav.goBack()
+  nav.goBack();
 }
 
 const styles = StyleSheet.create({

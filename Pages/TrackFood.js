@@ -1,21 +1,19 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import CustomSlider from "../Components/CustomSlider";
 import PageTitle from "../Components/PageTitle";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../Components/CustomButton";
+import { DBContext } from "../App";
 
 export default function TrackFood() {
   const [breakfastRange, setBreakfastRange] = useState(3);
   const [lunchRange, setLunchRange] = useState(3);
   const [dinnerRange, setDinnerRange] = useState(3);
   const [snackRange, setSnackRange] = useState(3);
+  const db = useContext(DBContext);
 
   const nav = useNavigation();
-
-  const handleNavigation = () => {
-    nav.goBack();
-  };
 
   return (
     <View style={styles.page}>
@@ -51,12 +49,39 @@ export default function TrackFood() {
           />
         </View>
         <View style={styles.buttonConatainer}>
-          <CustomButton onPress={handleNavigation} />
+          <CustomButton
+            onPress={async () =>
+              handlePress(
+                db,
+                breakfastRange,
+                lunchRange,
+                dinnerRange,
+                snackRange,
+                nav
+              )
+            }
+            width={100}
+            text="Save"
+          />
         </View>
       </View>
     </View>
   );
 }
+
+const handlePress = async (db, breakfast, lunch, dinner, snacks, nav) => {
+  await db.runAsync(
+    "INSERT INTO foodLog (time, breakfast, lunch, dinner, snacks) VALUES (?, ?, ?, ?, ?);",
+    Date.now(),
+    breakfast,
+    lunch,
+    dinner,
+    snacks
+  );
+  // print table for debugging purposes
+  console.log(await db.getAllAsync("SELECT * FROM foodLog"));
+  nav.goBack();
+};
 
 const styles = StyleSheet.create({
   page: {

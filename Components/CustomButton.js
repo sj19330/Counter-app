@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
 export default function CustomButton(props) {
@@ -22,11 +21,6 @@ export default function CustomButton(props) {
     </Pressable>
   );
 }
-
-CustomButton.defaultProps = {
-  text: "Save",
-  width: 100,
-};
 
 const styles = StyleSheet.create({
   button: {
