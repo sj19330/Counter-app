@@ -9,9 +9,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TestPage from "./Pages/Testpage";
 import { useState, useEffect, createContext } from "react";
 import * as SQLite from "expo-sqlite";
+import { DBContext } from "./DbContext";
 
 const Stack = createStackNavigator();
-export const DBContext = createContext(null);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);

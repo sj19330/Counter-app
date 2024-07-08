@@ -29,7 +29,11 @@ export default function HomePage() {
           onPress={() => nav.navigate("Progress")}
         />
         {developerMode && (
-          <CustomButton width="60%" text="Test Page" onPress={() => {}} />
+          <CustomButton
+            width="60%"
+            text="Test Page"
+            onPress={() => nav.navigate("Test")}
+          />
         )}
       </View>
     </View>

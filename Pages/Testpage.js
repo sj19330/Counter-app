@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
-import PageTitle from "../Components/PageTitle";
 
-import CustomButton from "../Components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { DBContext } from "../DbContext";
 
-export default function WeightLog() {
-  const nav = useNavigation();
+export default function TestPage() {
+  const db = useContext(DBContext);
 
   return (
     <View>
-      <CustomButton onPress={() => nav.navigate("Home")}></CustomButton>
+      <Text> </Text>
     </View>
   );
 }

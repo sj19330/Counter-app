@@ -6,7 +6,7 @@ import WeightInput from "../Components/WeightPageComponents/WeightInput";
 import CustomButton from "../Components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useContext } from "react";
-import { DBContext } from "../App";
+import { DBContext } from "../DbContext";
 
 export default function WeightLog() {
   const nav = useNavigation();
