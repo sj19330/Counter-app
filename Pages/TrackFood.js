@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import CustomSlider from "../Components/CustomSlider";
 import PageTitle from "../Components/PageTitle";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../Components/CustomButton";
 import { DBContext } from "../DbContext";
@@ -14,6 +14,18 @@ export default function TrackFood() {
   const db = useContext(DBContext);
 
   const nav = useNavigation();
+
+  useEffect(() => {
+    loadData(db).then((lastEntry) => {
+      //add if to see if entry is from today
+      if (true) {
+        setBreakfastRange(lastEntry.breakfast);
+        setLunchRange(lastEntry.lunch);
+        setDinnerRange(lastEntry.dinner);
+        setSnackRange(lastEntry.snacks);
+      }
+    });
+  }, []);
 
   return (
     <View style={styles.page}>
@@ -81,6 +93,12 @@ const handlePress = async (db, breakfast, lunch, dinner, snacks, nav) => {
   // print table for debugging purposes
   console.log(await db.getAllAsync("SELECT * FROM foodLog"));
   nav.goBack();
+};
+
+const loadData = async (db) => {
+  const data = await db.getAllAsync("SELECT * FROM foodLog");
+  const lastEntry = data[data.length - 1];
+  return lastEntry;
 };
 
 const styles = StyleSheet.create({

@@ -7,7 +7,6 @@ export default function WeightInput(props) {
     if (newValue.length <= 6) {
       props.setWeight(newValue);
     }
-    console.log(props.weight.length);
   };
   const smallText = props.weight.length > 2;
   const verySmallText = props.weight.length > 4;
