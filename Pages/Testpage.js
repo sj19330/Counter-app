@@ -14,7 +14,7 @@ export default function TestPage() {
 
   return (
     <View style={styles.container}>
-      <Text>{content}</Text>
+      <Text>{typeof content}</Text>
     </View>
   );
 }
