@@ -4,14 +4,14 @@ import PageTitle from "../Components/PageTitle";
 import { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../Components/CustomButton";
-import { DBContext } from "../DbContext";
+import { DBProvider } from "../DbProvider";
 
 export default function TrackFood() {
   const [breakfastRange, setBreakfastRange] = useState(3);
   const [lunchRange, setLunchRange] = useState(3);
   const [dinnerRange, setDinnerRange] = useState(3);
   const [snackRange, setSnackRange] = useState(3);
-  const db = useContext(DBContext);
+  const db = useContext(DBProvider);
 
   const nav = useNavigation();
 

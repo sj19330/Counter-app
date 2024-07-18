@@ -2,9 +2,9 @@ import { useState, useEffect, createContext } from "react";
 import { Text, View } from "react-native";
 import * as SQLite from "expo-sqlite";
 
-export const DBContext = createContext(undefined);
+export const DBProvider = createContext(undefined);
 
-export default function DataBaseContext({ children }) {
+export default function DataBaseProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [database, setDatabase] = useState(null);
 
@@ -22,7 +22,9 @@ export default function DataBaseContext({ children }) {
       </View>
     );
   } else {
-    return <DBContext.Provider value={database}>{children}</DBContext.Provider>;
+    return (
+      <DBProvider.Provider value={database}>{children}</DBProvider.Provider>
+    );
   }
 }
 
