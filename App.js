@@ -1,14 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import HomePage from "./Pages/HomePage";
 import TrackFood from "./Pages/TrackFood";
 import Progress from "./Pages/Progress";
 import WeightLog from "./Pages/WeightLog";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TestPage from "./Pages/Testpage";
-import { useState, useEffect, createContext } from "react";
-import DataBaseContext, { DBContext } from "./DbContext";
+import DataBaseContext from "./DbProvider";
 
 const Stack = createStackNavigator();
 

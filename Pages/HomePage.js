@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, View, Pressable, Button } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import CustomButton from "../Components/CustomButton";
-import { useState, useEffect } from "react";
 
 export default function HomePage() {
   const developerMode = true;
