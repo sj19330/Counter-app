@@ -11,12 +11,16 @@ import { DBProvider } from "../DbProvider";
 export default function WeightLog() {
   const nav = useNavigation();
   const [weightInput, setWeightInput] = useState("0");
+  const [firstEntryToday, setFirstEntryToday] = useState(true);
+  const [lastEntryTime, setLastEntryTime] = useState(null);
   const db = useContext(DBProvider);
 
   useEffect(() => {
     loadWeight(db).then((lastEntry) => {
-      if (true) {
-        //see if this entry is from today
+      setLastEntryTime(lastEntry.time);
+      //see if this entry is from today
+      if (checkEntryDateIsToday(lastEntry.date)) {
+        setFirstEntryToday(false);
         setWeightInput(lastEntry.kilograms.toString());
       }
     });
@@ -33,7 +37,9 @@ export default function WeightLog() {
         </View>
         <View style={styles.saveContainer}>
           <CustomButton
-            onPress={async () => saveWeight(db, weightInput, nav)}
+            onPress={async () =>
+              saveWeight(db, weightInput, nav, firstEntryToday, lastEntryTime)
+            }
             width={100}
             text="Save"
           />
@@ -43,12 +49,23 @@ export default function WeightLog() {
   );
 }
 
-async function saveWeight(db, kilograms, nav) {
-  await db.runAsync(
-    "INSERT INTO weight (time, kilograms) VALUES (?, ?);",
-    Date.now(),
-    kilograms
-  );
+async function saveWeight(db, kilograms, nav, firstEntryToday, lastEntryTime) {
+  if (firstEntryToday) {
+    await db.runAsync(
+      "INSERT INTO weight (time, date, kilograms) VALUES (?, ?, ?);",
+      Date.now(),
+      new Date(Date.now()).toISOString(),
+      kilograms
+    );
+  } else {
+    await db.runAsync(
+      "UPDATE weight SET time = ?, date = ?, kilograms = ? WHERE time = ?;",
+      Date.now(),
+      new Date(Date.now()).toISOString(),
+      kilograms,
+      lastEntryTime
+    );
+  }
   // print table for debugging purposes
   console.log(await db.getAllAsync("SELECT * FROM weight"));
   nav.goBack();
@@ -60,6 +77,9 @@ async function loadWeight(db) {
   console.log(lastEntry);
   return lastEntry;
 }
+
+const checkEntryDateIsToday = (date) =>
+  date.slice(0, 10) == new Date(Date.now()).toISOString().slice(0, 10);
 
 const styles = StyleSheet.create({
   page: {

@@ -11,18 +11,22 @@ export default function TrackFood() {
   const [lunchRange, setLunchRange] = useState(3);
   const [dinnerRange, setDinnerRange] = useState(3);
   const [snackRange, setSnackRange] = useState(3);
+  const [firstEntryToday, setFirstEntryToday] = useState(true);
+  const [lastEntryTime, setLastEntryTime] = useState(null);
   const db = useContext(DBProvider);
 
   const nav = useNavigation();
 
   useEffect(() => {
     loadData(db).then((lastEntry) => {
+      setLastEntryTime(lastEntry.time);
       //add if to see if entry is from today
-      if (true) {
+      if (checkEntryDateIsToday(lastEntry.date)) {
         setBreakfastRange(lastEntry.breakfast);
         setLunchRange(lastEntry.lunch);
         setDinnerRange(lastEntry.dinner);
         setSnackRange(lastEntry.snacks);
+        setFirstEntryToday(false);
       }
     });
   }, []);
@@ -69,7 +73,9 @@ export default function TrackFood() {
                 lunchRange,
                 dinnerRange,
                 snackRange,
-                nav
+                nav,
+                firstEntryToday,
+                lastEntryTime
               )
             }
             width={100}
@@ -81,15 +87,40 @@ export default function TrackFood() {
   );
 }
 
-const handlePress = async (db, breakfast, lunch, dinner, snacks, nav) => {
-  await db.runAsync(
-    "INSERT INTO foodLog (time, breakfast, lunch, dinner, snacks) VALUES (?, ?, ?, ?, ?);",
-    Date.now(),
-    breakfast,
-    lunch,
-    dinner,
-    snacks
-  );
+const handlePress = async (
+  db,
+  breakfast,
+  lunch,
+  dinner,
+  snacks,
+  nav,
+  firstEntryToday,
+  lastEntryTime
+) => {
+  if (firstEntryToday) {
+    await db.runAsync(
+      "INSERT INTO foodLog (time, date, breakfast, lunch, dinner, snacks) VALUES (?, ?, ?, ?, ?, ?);",
+      Date.now(),
+      new Date(Date.now()).toISOString(),
+      breakfast,
+      lunch,
+      dinner,
+      snacks
+    );
+  } else {
+    console.log("hello");
+    await db.runAsync(
+      "UPDATE foodLog SET time = ?, date = ?, breakfast = ?, lunch = ?, dinner = ?, snacks = ? WHERE time = ?;",
+      Date.now(),
+      new Date(Date.now()).toISOString(),
+      breakfast,
+      lunch,
+      dinner,
+      snacks,
+      lastEntryTime
+    );
+    console.log(lastEntryTime);
+  }
   // print table for debugging purposes
   console.log(await db.getAllAsync("SELECT * FROM foodLog"));
   nav.goBack();
@@ -100,6 +131,9 @@ const loadData = async (db) => {
   const lastEntry = data[data.length - 1];
   return lastEntry;
 };
+
+const checkEntryDateIsToday = (date) =>
+  date.slice(0, 10) == new Date(Date.now()).toISOString().slice(0, 10);
 
 const styles = StyleSheet.create({
   page: {

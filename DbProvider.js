@@ -35,6 +35,7 @@ async function initialiseDatabase() {
   await db.execAsync(`
       CREATE TABLE IF NOT EXISTS weight (
         time INTEGER NOT NULL,
+        date STRING NOT NULL,
         kilograms REAL NOT NULL
       );
     `);
@@ -42,6 +43,7 @@ async function initialiseDatabase() {
   await db.execAsync(`
       CREATE TABLE IF NOT EXISTS foodLog (
         time INTEGER NOT NULL,
+        date STRING NOT NULL,
         breakfast INTEGER NOT NULL,
         lunch INTEGER NOT NULL, 
         dinner INTEGER NOT NULL,
