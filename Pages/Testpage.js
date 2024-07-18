@@ -9,6 +9,7 @@ export default function TestPage() {
 
   useEffect(() => {
     getContent(db).then((content) => setContent(content));
+    addToDb(db);
   }, []);
 
   return (
