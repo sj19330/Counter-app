@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { DBProvider } from "../DbProvider";
+import { DbContext } from "../DbProvider";
 
 export default function TestPage() {
-  const db = useContext(DBProvider);
+  const db = useContext(DbContext);
   const [content, setContent] = useState(null);
 
   useEffect(() => {
     getContent(db).then((content) => setContent(content));
-    addToDb(db);
+    // addToDb(db);
   }, []);
 
   return (

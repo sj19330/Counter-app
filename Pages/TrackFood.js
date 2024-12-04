@@ -4,30 +4,26 @@ import PageTitle from "../Components/PageTitle";
 import { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../Components/CustomButton";
-import { DBProvider } from "../DbProvider";
+import { DbContext } from "../DbProvider";
 
 export default function TrackFood() {
   const [breakfastRange, setBreakfastRange] = useState(3);
   const [lunchRange, setLunchRange] = useState(3);
   const [dinnerRange, setDinnerRange] = useState(3);
   const [snackRange, setSnackRange] = useState(3);
-  const [firstEntryToday, setFirstEntryToday] = useState(true);
-  const [lastEntryTime, setLastEntryTime] = useState(null);
-  const db = useContext(DBProvider);
+  const db = useContext(DbContext);
 
   const nav = useNavigation();
 
   useEffect(() => {
     loadData(db).then((lastEntry) => {
-      setLastEntryTime(lastEntry.time);
-      //add if to see if entry is from today
-      if (checkEntryDateIsToday(lastEntry.date)) {
-        setBreakfastRange(lastEntry.breakfast);
-        setLunchRange(lastEntry.lunch);
-        setDinnerRange(lastEntry.dinner);
-        setSnackRange(lastEntry.snacks);
-        setFirstEntryToday(false);
+      if (lastEntry == null) {
+        return;
       }
+      setBreakfastRange(lastEntry.breakfast);
+      setLunchRange(lastEntry.lunch);
+      setDinnerRange(lastEntry.dinner);
+      setSnackRange(lastEntry.snacks);
     });
   }, []);
 
@@ -67,16 +63,7 @@ export default function TrackFood() {
         <View style={styles.buttonConatainer}>
           <CustomButton
             onPress={async () =>
-              handlePress(
-                db,
-                breakfastRange,
-                lunchRange,
-                dinnerRange,
-                snackRange,
-                nav,
-                firstEntryToday,
-                lastEntryTime
-              )
+              await handlePress(db, breakfastRange, lunchRange, dinnerRange, snackRange, nav)
             }
             width={100}
             text="Save"
@@ -87,53 +74,22 @@ export default function TrackFood() {
   );
 }
 
-const handlePress = async (
-  db,
-  breakfast,
-  lunch,
-  dinner,
-  snacks,
-  nav,
-  firstEntryToday,
-  lastEntryTime
-) => {
-  if (firstEntryToday) {
-    await db.runAsync(
-      "INSERT INTO foodLog (time, date, breakfast, lunch, dinner, snacks) VALUES (?, ?, ?, ?, ?, ?);",
-      Date.now(),
-      new Date(Date.now()).toISOString(),
-      breakfast,
-      lunch,
-      dinner,
-      snacks
-    );
-  } else {
-    console.log("hello");
-    await db.runAsync(
-      "UPDATE foodLog SET time = ?, date = ?, breakfast = ?, lunch = ?, dinner = ?, snacks = ? WHERE time = ?;",
-      Date.now(),
-      new Date(Date.now()).toISOString(),
-      breakfast,
-      lunch,
-      dinner,
-      snacks,
-      lastEntryTime
-    );
-    console.log(lastEntryTime);
-  }
-  // print table for debugging purposes
-  console.log(await db.getAllAsync("SELECT * FROM foodLog"));
+const handlePress = async (db, breakfast, lunch, dinner, snacks, nav) => {
+  await db.runAsync(
+    "INSERT INTO foodLog (time, breakfast, lunch, dinner, snacks) VALUES (?, ?, ?, ?, ?);",
+    Date.now(),
+    breakfast,
+    lunch,
+    dinner,
+    snacks
+  );
   nav.goBack();
 };
 
 const loadData = async (db) => {
-  const data = await db.getAllAsync("SELECT * FROM foodLog");
-  const lastEntry = data[data.length - 1];
-  return lastEntry;
+  const data = await db.getAllAsync("SELECT * FROM foodLog ORDER BY time DESC LIMIT 1");
+  return data.length == 1 ? data[0] : null;
 };
-
-const checkEntryDateIsToday = (date) =>
-  date.slice(0, 10) == new Date(Date.now()).toISOString().slice(0, 10);
 
 const styles = StyleSheet.create({
   page: {

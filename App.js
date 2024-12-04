@@ -5,13 +5,13 @@ import WeightLog from "./Pages/WeightLog";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TestPage from "./Pages/Testpage";
-import DataBaseContext from "./DbProvider";
+import DbProvider from "./DbProvider";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <DataBaseContext>
+    <DbProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomePage} />
@@ -21,6 +21,6 @@ export default function App() {
           <Stack.Screen name="Test" component={TestPage} />
         </Stack.Navigator>
       </NavigationContainer>
-    </DataBaseContext>
+    </DbProvider>
   );
 }

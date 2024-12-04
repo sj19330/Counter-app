@@ -1,5 +1,5 @@
 # Counter app 
-
+`npx expo start`
 
 #### A different aproach to losing weight
 
