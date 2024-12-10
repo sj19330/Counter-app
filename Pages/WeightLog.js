@@ -5,13 +5,22 @@ import { TextInput } from "react-native-gesture-handler";
 import WeightInput from "../Components/WeightPageComponents/WeightInput";
 import CustomButton from "../Components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { useState, useContext } from "react";
-import { DBProvider } from "../DbProvider";
+import { useState, useContext, useEffect } from "react";
+import { DbContext } from "../DbProvider";
 
 export default function WeightLog() {
   const nav = useNavigation();
   const [weightInput, setWeightInput] = useState("0");
-  const db = useContext(DBProvider);
+  const db = useContext(DbContext);
+
+  useEffect(() => {
+    loadWeight(db).then((lastEntry) => {
+      if (lastEntry == null) {
+        return;
+      }
+      setWeightInput(lastEntry.kilograms.toString());
+    });
+  }, []);
 
   return (
     <View style={styles.page}>
@@ -24,7 +33,9 @@ export default function WeightLog() {
         </View>
         <View style={styles.saveContainer}>
           <CustomButton
-            onPress={async () => saveWeight(db, weightInput, nav)}
+            onPress={async () =>
+              await saveWeight(db, weightInput, nav)
+            }
             width={100}
             text="Save"
           />
@@ -40,9 +51,12 @@ async function saveWeight(db, kilograms, nav) {
     Date.now(),
     kilograms
   );
-  // print table for debugging purposes
-  console.log(await db.getAllAsync("SELECT * FROM weight"));
   nav.goBack();
+}
+
+async function loadWeight(db) {
+  const data = await db.getAllAsync("SELECT * FROM weight ORDER BY time DESC limit 1");
+  return data.length == 1 ? data[0] : null;
 }
 
 const styles = StyleSheet.create({

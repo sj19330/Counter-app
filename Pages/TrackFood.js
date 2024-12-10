@@ -1,19 +1,31 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import CustomSlider from "../Components/CustomSlider";
 import PageTitle from "../Components/PageTitle";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../Components/CustomButton";
-import { DBProvider } from "../DbProvider";
+import { DbContext } from "../DbProvider";
 
 export default function TrackFood() {
   const [breakfastRange, setBreakfastRange] = useState(3);
   const [lunchRange, setLunchRange] = useState(3);
   const [dinnerRange, setDinnerRange] = useState(3);
   const [snackRange, setSnackRange] = useState(3);
-  const db = useContext(DBProvider);
+  const db = useContext(DbContext);
 
   const nav = useNavigation();
+
+  useEffect(() => {
+    loadData(db).then((lastEntry) => {
+      if (lastEntry == null) {
+        return;
+      }
+      setBreakfastRange(lastEntry.breakfast);
+      setLunchRange(lastEntry.lunch);
+      setDinnerRange(lastEntry.dinner);
+      setSnackRange(lastEntry.snacks);
+    });
+  }, []);
 
   return (
     <View style={styles.page}>
@@ -51,14 +63,7 @@ export default function TrackFood() {
         <View style={styles.buttonConatainer}>
           <CustomButton
             onPress={async () =>
-              handlePress(
-                db,
-                breakfastRange,
-                lunchRange,
-                dinnerRange,
-                snackRange,
-                nav
-              )
+              await handlePress(db, breakfastRange, lunchRange, dinnerRange, snackRange, nav)
             }
             width={100}
             text="Save"
@@ -78,9 +83,12 @@ const handlePress = async (db, breakfast, lunch, dinner, snacks, nav) => {
     dinner,
     snacks
   );
-  // print table for debugging purposes
-  console.log(await db.getAllAsync("SELECT * FROM foodLog"));
   nav.goBack();
+};
+
+const loadData = async (db) => {
+  const data = await db.getAllAsync("SELECT * FROM foodLog ORDER BY time DESC LIMIT 1");
+  return data.length == 1 ? data[0] : null;
 };
 
 const styles = StyleSheet.create({
